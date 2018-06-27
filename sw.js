@@ -2,10 +2,10 @@ self.addEventListener('install', function(e) {
     e.waitUntil(
       caches.open('currencyConverter').then(function(cache) {
         return cache.addAll([
-          '/currency-converter/',
-          '/currency-converter/index.html',
-          '/currency-converter/css/style.css',
-          '/currency-converter/js/app.js',
+          './',
+          './index.html',
+          '../css/style.css',
+          '../js/app.js',
           'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
