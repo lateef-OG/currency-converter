@@ -23,18 +23,21 @@
                             <h3>Currency Converter</h3>
                         </div>
                         <div class="content">
-                                <div class="input">
-                                    <select name="" id="select1"></select>
-                                    <input type="text">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <small>From</small>
+                                    <select name="" id="select-from"></select>
+                                    <small>To</small>
+                                    <select name="" id="select-to"></select>
                                 </div>
-                                <div class="input">
-                                    <select name="" id="select2"></select>
-                                    <input type="text">
+                                <div class="col-sm-6">
+                                    <small>Amount to Convert</small>
+                                    <input type="number" id="input-amount">
+                                    <small>Result</small>
+                                    <h3 id="output">0.0</h3>
+                                    <button class="btn btn-primary" onclick="convertCurrency()">Convert</button>
                                 </div>
-                                <div class="input">
-                                    <h3 id="output">0.0000</h3>
-                                    <button class="btn btn-primary">Convert</button>
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
