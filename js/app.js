@@ -52,6 +52,6 @@ function convertCurrency(){
         output.innerHTML = result;
         console.log(result);
     }).catch((error) => {
-        console.log(error)
+        alert(error);
     });
 }
