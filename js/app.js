@@ -40,7 +40,7 @@ function convertCurrency(){
     //   })
 
     fetch(url).then((response) => {
-        if (response.ok) {
+        if (response.status === 200) {
             return response.json();
           } else {
             throw new Error('Something went wrong');
