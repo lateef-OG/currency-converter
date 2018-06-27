@@ -31,9 +31,21 @@ function convertCurrency(){
     let query = `${cId1}_${cId2}`;
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=ultra`
 
-    fetch(url).then(
-        response => response.json()
-    ).then(jsonData => {
+    // fetch(url).then((response) => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     } else {
+    //       throw new Error('Something went wrong');
+    //     }
+    //   })
+
+    fetch(url).then((response) => {
+        if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Something went wrong');
+          }
+    }).then(jsonData => {
         var conversionRate = jsonData[query];
         var result = conversionRate * input.value;
         result = Math.round(result * 100) / 100;
