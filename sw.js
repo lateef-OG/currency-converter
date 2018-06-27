@@ -3,7 +3,7 @@ self.addEventListener('install', function(e) {
       caches.open('currencyConverter').then(function(cache) {
         return cache.addAll([
           './',
-        //   './index.html',
+          './index.html',
         //   '../css/style.css',
         //   '../js/app.js',
         //   'https://free.currencyconverterapi.com/api/v5/currencies'
