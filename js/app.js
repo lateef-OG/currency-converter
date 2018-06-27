@@ -39,5 +39,7 @@ function convertCurrency(){
         result = Math.round(result * 100) / 100;
         output.innerHTML = result;
         console.log(result);
+    }).catch((error) => {
+        console.log(error)
     });
 }
