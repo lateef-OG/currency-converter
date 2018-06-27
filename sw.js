@@ -5,7 +5,7 @@ self.addEventListener('install', function(e) {
           './',
           './index.html',
           '../css/style.css',
-        //   '../js/app.js',
+          '../js/app.js',
         //   'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
