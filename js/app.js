@@ -38,6 +38,7 @@ function convertCurrency(){
     //       throw new Error('Something went wrong');
     //     }
     //   })
+    
 
     fetch(url).then((response) => {
         if (response.status === 200) {
@@ -46,12 +47,28 @@ function convertCurrency(){
             throw new Error('Something went wrong');
           }
     }).then(jsonData => {
+        var dbPromise = idb.open('converter', 1, function(upgradeDb){
+                upgradeDb.createObjectStore('rates', {keyPath: 'query'})
+        });
+        dbPromise.then(function(db){
+            var tx = db.transaction('rates', 'readwrite');
+            var store = tx.objectStore('rates');
+            store.put({
+                query: query,
+                rates: jsonData[query]
+            });
+            console.log(jsonData[query])
+            return tx.complete;
+        });
+        
         var conversionRate = jsonData[query];
         var result = conversionRate * input.value;
         result = Math.round(result * 100) / 100;
         output.innerHTML = result;
         console.log(result);
+
+        
     }).catch((error) => {
-        alert(error);
+        alert('Something went wrong, please try again later');
     });
 }

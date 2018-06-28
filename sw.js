@@ -6,6 +6,10 @@ self.addEventListener('install', function(e) {
           '/currency-converter/index.html',
           '/currency-converter/css/style.css',
           '/currency-converter/js/app.js',
+        //   './',
+        //   './index.html',
+        //   '../css/style.css',
+        //   '../js/app.js',
           'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
