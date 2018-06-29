@@ -2,14 +2,11 @@ self.addEventListener('install', function(e) {
     e.waitUntil(
       caches.open('currencyConverter').then(function(cache) {
         return cache.addAll([
-          '/currency-converter/',
-          '/currency-converter/index.html',
-          '/currency-converter/css/style.css',
-          '/currency-converter/js/app.js',
-        //   './',
-        //   './index.html',
-        //   '../css/style.css',
-        //   '../js/app.js',
+          './',
+          './index.html',
+          'css/style.css',
+          'js/app.js',
+          'js/idb.js',
           'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
@@ -17,16 +14,10 @@ self.addEventListener('install', function(e) {
 });
 
 self.addEventListener('fetch', function(event) {
-
-    console.log(event.request.url);
     event.respondWith(
-    
         caches.match(event.request).then(function(response) {
-        
             return response || fetch(event.request);
-        
         })
-        
     );
     
 });

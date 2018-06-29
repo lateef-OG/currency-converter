@@ -25,31 +25,30 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies').then(
 	}
 });
 
-function convertCurrency(){
+function convertCurrency(rate){
+    if(input.value == "" || input == null){
+        alert('Please enter a value');
+    }else{
+        var result = rate * input.value;
+        result = Math.round(result * 100) / 100;
+        output.innerHTML = result;
+    }
+}
+
+function handleClick(){
     var cId1 = selectFrom.options[selectFrom.selectedIndex].value;
     var cId2 = selectTo.options[selectTo.selectedIndex].value;
     let query = `${cId1}_${cId2}`;
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=ultra`
-
-    // fetch(url).then((response) => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     } else {
-    //       throw new Error('Something went wrong');
-    //     }
-    //   })
     
+    var dbPromise = idb.open('converter', 1, function(upgradeDb){
+        var store = upgradeDb.createObjectStore('rates', {keyPath: 'query'});
+        store.createIndex('id', 'query')
+    });
 
-    fetch(url).then((response) => {
-        if (response.status === 200) {
-            return response.json();
-          } else {
-            throw new Error('Something went wrong');
-          }
-    }).then(jsonData => {
-        var dbPromise = idb.open('converter', 1, function(upgradeDb){
-                upgradeDb.createObjectStore('rates', {keyPath: 'query'})
-        });
+    fetch(url).then(
+        response => response.json()
+    ).then(jsonData => {
         dbPromise.then(function(db){
             var tx = db.transaction('rates', 'readwrite');
             var store = tx.objectStore('rates');
@@ -57,18 +56,27 @@ function convertCurrency(){
                 query: query,
                 rates: jsonData[query]
             });
-            console.log(jsonData[query])
             return tx.complete;
         });
         
         var conversionRate = jsonData[query];
-        var result = conversionRate * input.value;
-        result = Math.round(result * 100) / 100;
-        output.innerHTML = result;
-        console.log(result);
+        convertCurrency(conversionRate);
 
         
     }).catch((error) => {
-        alert('Something went wrong, please try again later');
+        dbPromise.then(function(db){
+            let tx = db.transaction('rates');
+            let store = tx.objectStore('rates');
+            return store.getAll(query);
+        }).then(function(rates){
+            if(rates.length === 0){
+                alert('Something went wrong, please try again later');
+            }else{
+                for (rate in rates){
+                    const conversionRate = rates[rate].rates;
+                    convertCurrency(conversionRate);
+                }
+            }
+        })
     });
 }
