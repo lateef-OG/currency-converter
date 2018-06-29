@@ -29,46 +29,45 @@ function convertCurrency(rate){
     if(input.value == "" || input == null){
         alert('Please enter a value');
     }else{
-        var result = rate * input.value;
+        let result = rate * input.value;
         result = Math.round(result * 100) / 100;
         output.innerHTML = result;
     }
 }
 
 function handleClick(){
-    var cId1 = selectFrom.options[selectFrom.selectedIndex].value;
-    var cId2 = selectTo.options[selectTo.selectedIndex].value;
+    const cId1 = selectFrom.options[selectFrom.selectedIndex].value;
+    const cId2 = selectTo.options[selectTo.selectedIndex].value;
     let query = `${cId1}_${cId2}`;
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=ultra`
     
-    var dbPromise = idb.open('converter', 1, function(upgradeDb){
-        var store = upgradeDb.createObjectStore('rates', {keyPath: 'query'});
+    const dbPromise = idb.open('converter', 1, upgradeDb => {
+        const store = upgradeDb.createObjectStore('rates', {keyPath: 'query'});
         store.createIndex('id', 'query')
     });
 
     fetch(url).then(
         response => response.json()
     ).then(jsonData => {
-        dbPromise.then(function(db){
-            var tx = db.transaction('rates', 'readwrite');
-            var store = tx.objectStore('rates');
+        dbPromise.then(db => {
+            const tx = db.transaction('rates', 'readwrite');
+            const store = tx.objectStore('rates');
             store.put({
-                query: query,
+                query,
                 rates: jsonData[query]
             });
             return tx.complete;
         });
         
-        var conversionRate = jsonData[query];
+        const conversionRate = jsonData[query];
         convertCurrency(conversionRate);
 
-        
     }).catch((error) => {
-        dbPromise.then(function(db){
+        dbPromise.then(db => {
             let tx = db.transaction('rates');
             let store = tx.objectStore('rates');
             return store.getAll(query);
-        }).then(function(rates){
+        }).then(rates => {
             if(rates.length === 0){
                 alert('Something went wrong, please try again later');
             }else{
