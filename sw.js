@@ -7,6 +7,8 @@ self.addEventListener('install', function(e) {
           'css/style.css',
           'js/app.js',
           'js/idb.js',
+          'img/favicon.png',
+          'img/back-img.png',
           'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
