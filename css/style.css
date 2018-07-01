@@ -18,6 +18,7 @@ body{
 .title h3{
     text-align: center;
     color: #ffffff;
+    font-weight: bold;
 }
 .content{
     padding: 5%;
@@ -48,6 +49,10 @@ select{
 button{
     float: right;
     width: 50%;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    background-color: #6686FF !important;
+    border: 1px solid #6686FF !important;
 }
 img{
     position: absolute;
