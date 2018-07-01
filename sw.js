@@ -9,6 +9,7 @@ self.addEventListener('install', function(e) {
           'js/idb.js',
           'img/favicon.png',
           'img/back-img.png',
+          'img/convert.png',
           'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css',
           'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);

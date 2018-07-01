@@ -1,0 +1,15 @@
+{
+    "short_name": "C-Converter",
+    "name": "Currency Converter",
+    "icons": [
+      {
+        "src":"img/convert.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/?utm_source=homescreen",
+    "background_color": "#FFFFFF",
+    "theme_color": "#6686FF",
+    "display": "standalone"
+  }
