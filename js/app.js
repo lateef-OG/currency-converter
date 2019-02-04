@@ -7,12 +7,15 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies').then(
    response => response.json()
 ).then(jsonData => {
     const currencies = jsonData.results;
+    // currencies.sort();
+    console.log(currencies);
     for (currency in currencies){
+        console.log(currencies[currency])
         const currencyId = currencies[currency].id;
         const currencyName = currencies[currency].currencyName;
         const option = document.createElement("option");
         option.setAttribute("value", currencyId);
-        option.text = `${currencyId} (${currencyName})`;
+        option.text = `${currencyName} (${currencyId})`;
         selectFrom.appendChild(option);
     }
     for (currency in currencies){
@@ -20,7 +23,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies').then(
         const currencyName = currencies[currency].currencyName;
         const option = document.createElement("option");
         option.setAttribute("value", currencyId);
-        option.text = `${currencyId} (${currencyName})`;
+        option.text = `${currencyName} (${currencyId})`;
         selectTo.appendChild(option);
 	}
 });
