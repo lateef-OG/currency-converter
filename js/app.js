@@ -7,8 +7,6 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies').then(
    response => response.json()
 ).then(jsonData => {
     const currencies = jsonData.results;
-    // currencies.sort();
-    console.log(currencies);
     for (currency in currencies){
         console.log(currencies[currency])
         const currencyId = currencies[currency].id;
